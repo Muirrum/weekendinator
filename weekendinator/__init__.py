@@ -6,6 +6,7 @@ from flask_migrate import Migrate
 db = SQLAlchemy()
 login_manager = LoginManager()
 migrator = Migrate()
+
 def create_app():
     app = Flask(__name__)
 
@@ -27,5 +28,9 @@ def create_app():
 
     login_manager.login_view = "auth.login"
     login_manager.login_message = "You need to be logged in to view that page"
+
+    # Init blueprints
+    from weekendinator import auth
+    app.register_blueprint(auth.bp)
 
     return app
