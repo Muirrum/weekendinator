@@ -1,11 +1,22 @@
 <!DOCTYPE html>
 <title>{% block title %}{% if title %}{{ title }} - Weekendinator{% else %}Weekendinator{% endif %}{% endblock %}</title>
+<link rel="stylesheet" href="https://unpkg.com/@thesephist/paper.css/dist/paper.min.css" />
+<link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
 
-<h1>{% if title %}{{ title }}{% else %}Weekendinator{% endif %}</h1>
+<header class="accent paper" id="page-heading">
+	<h1>{% if title %}{{ title }}{% else %}Weekendinator{% endif %}</h1>
+</header>
 
-<a href="{{ url_for('auth.login') }}">Login</a>
+<section class="buttons">
+	<div class="left">
+		<a class="paper movable paper-border-left" href="{{ url_for('meta.home') }}">Home</a>
+	</div>
+	<div class="right">
+		<a href="{{ url_for('auth.login') }}" class="paper movable">Register</a>
+		<a href="{{ url_for('auth.login') }}" class="paper movable paper-border-right">Login</a>
+</section>
 
-<div class="content">
+<section class="content paper">
 	{% for message in get_flashed_messages() %}
 		<div class="flash">{{ message }}</div>
 	{% endfor %}
@@ -13,4 +24,4 @@
 	{% block content %}
 	This is looking empty! Most likely, this page hasn't been fully implemented yet.
 	{% endblock %}
-</div>
+</section>

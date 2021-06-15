@@ -30,6 +30,9 @@ def create_app():
     login_manager.login_message = "You need to be logged in to view that page"
 
     # Init blueprints
+    from weekendinator import meta
+    app.register_blueprint(meta.bp)
+
     from weekendinator import auth
     app.register_blueprint(auth.bp)
 
