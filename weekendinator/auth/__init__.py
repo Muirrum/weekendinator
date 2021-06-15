@@ -1,3 +1,5 @@
+import uuid
+
 from flask import Blueprint, render_template, redirect, url_for, flash, current_app
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -27,6 +29,25 @@ def login():
             flash("Incorrect username")
 
    return render_template('auth/login.html', form=form, title="Login")
+
+@bp.route("/register", methods=["GET", "POST"])
+def register():
+    form = forms.RegisterForm()
+
+    if form.validate_on_submit():
+        id = uuid.uuid4()
+        user = Users(
+                id=id,
+                username=form.username.data,
+                email=form.email.data,
+                password_hash=generate_password_hash(form.password.data),
+                )
+        db.session.add(user)
+        db.session.commit()
+        flask_login.login_user(user)
+        return redirect(url_for("meta.home"))
+
+    return render_template("auth/register.html", form=form, title="Register")
 
 
 @login_manager.user_loader

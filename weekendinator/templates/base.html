@@ -12,8 +12,12 @@
 		<a class="paper movable paper-border-left" href="{{ url_for('meta.home') }}">Home</a>
 	</div>
 	<div class="right">
-		<a href="{{ url_for('auth.login') }}" class="paper movable">Register</a>
+		{% if current_user.is_authenticated %}
+		<a class="paper movable paper-border-right" href="{{ url_for('auth.logout') }}">Logout</a>
+		{% else %}
+		<a href="{{ url_for('auth.register') }}" class="paper movable">Register</a>
 		<a href="{{ url_for('auth.login') }}" class="paper movable paper-border-right">Login</a>
+		{% endif %}
 </section>
 
 <section class="content paper">

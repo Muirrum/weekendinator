@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<form method="POST">
+		{{ form.csrf_token }}
+		{{ form.username.label}}<br>{{ form.username(class_="paper") }}
+		{{ form.email.label }}<br>{{ form.email(class_="paper") }}
+		<span>
+			{{ form.password.label }}<br>{{ form.password(class_="paper") }}
+			{{ form.password_confirm.label }}<br>{{ form.password_confirm(class_="paper") }}
+		</span>
+		<input class="paper accent movable" type="submit" value="Register">
+	</form>
+{% endblock %}
